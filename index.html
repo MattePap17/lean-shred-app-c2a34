@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lean & Shred</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <meta name="theme-color" content="#1a2a44"/>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>Lean & Shred</h1>
+    <button id="installBtn" class="install">Install</button>
+  </header>
+
+  <nav class="tabs">
+    <button data-tab="dashboard" class="active">Dashboard</button>
+    <button data-tab="tracker">Daily Tracker</button>
+    <button data-tab="meals">Meal Plan</button>
+    <button data-tab="schedule">Weekly Schedule</button>
+    <button data-tab="resources">Resources</button>
+  </nav>
+
+  <main>
+    <section id="dashboard" class="tab active">
+      <h2>Progress Dashboard</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Current Weight</h3>
+          <div class="row">
+            <input id="weightInput" type="number" placeholder="lb">
+            <button id="saveWeight">Save</button>
+          </div>
+          <p class="small">Start: 220 lb • Goal: 175 lb</p>
+          <progress id="weightProgress" max="45" value="0"></progress>
+          <p id="weightStatus" class="small"></p>
+        </div>
+        <div class="card">
+          <h3>Hydration</h3>
+          <div class="row">
+            <input id="waterToday" type="number" step="0.1" placeholder="Liters today">
+            <button id="saveWater">Log</button>
+          </div>
+          <p class="small">Target: 3.0 L / day</p>
+          <progress id="waterProgress" max="3" value="0"></progress>
+        </div>
+        <div class="card">
+          <h3>Weekly Completion</h3>
+          <p class="small">Check off habits as you go.</p>
+          <div class="habits">
+            <label><input type="checkbox" class="habit"> Workout</label>
+            <label><input type="checkbox" class="habit"> Hit protein/calories</label>
+            <label><input type="checkbox" class="habit"> 7–8 hours sleep</label>
+            <label><input type="checkbox" class="habit"> 3L water</label>
+          </div>
+          <progress id="habitProgress" max="4" value="0"></progress>
+        </div>
+      </div>
+    </section>
+
+    <section id="tracker" class="tab">
+      <h2>Daily Tracker</h2>
+      <div class="tracker-grid">
+        <div class="row"><label>Day</label><label>Workout</label><label>Meals</label><label>Hydration (L)</label><label>Sleep (hrs)</label><label>Notes</label></div>
+        <div class="row" data-day="Mon"><span>Mon</span><input><input><input type="number" step="0.1"><input type="number" step="0.1"><input></div>
+        <div class="row" data-day="Tue"><span>Tue</span><input><input><input type="number" step="0.1"><input type="number" step="0.1"><input></div>
+        <div class="row" data-day="Wed"><span>Wed</span><input><input><input type="number" step="0.1"><input type="number" step="0.1"><input></div>
+        <div class="row" data-day="Thu"><span>Thu</span><input><input><input type="number" step="0.1"><input type="number" step="0.1"><input></div>
+        <div class="row" data-day="Fri"><span>Fri</span><input><input><input type="number" step="0.1"><input type="number" step="0.1"><input></div>
+        <div class="row" data-day="Sat"><span>Sat</span><input><input><input type="number" step="0.1"><input type="number" step="0.1"><input></div>
+        <div class="row" data-day="Sun"><span>Sun</span><input><input><input type="number" step="0.1"><input type="number" step="0.1"><input></div>
+      </div>
+      <div class="row actions">
+        <button id="saveWeek">Save Week</button>
+        <button id="clearWeek">Clear</button>
+        <button id="exportData">Export</button>
+        <input id="importFile" type="file" accept="application/json">
+      </div>
+      <div class="reflection">
+        <h3>Weekly Reflection</h3>
+        <textarea id="reflection" rows="4" placeholder="Wins / adjustments for next week..."></textarea>
+      </div>
+    </section>
+
+    <section id="meals" class="tab">
+      <h2>3-Day Meal Rotation</h2>
+      <div class="meal-cards">
+        <article>
+          <h3>Day 1</h3>
+          <ul>
+            <li><b>Breakfast:</b> Protein Oat Bowl</li>
+            <li><b>Lunch:</b> Chicken Rice Bowl</li>
+            <li><b>Dinner:</b> Turkey Pasta</li>
+            <li><b>Snacks:</b> Greek yogurt + honey; protein shake + almonds</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Day 2</h3>
+          <ul>
+            <li><b>Breakfast:</b> Scrambled Eggs + Spinach & Toast</li>
+            <li><b>Lunch:</b> Beef Wrap</li>
+            <li><b>Dinner:</b> Chicken Stir-Fry</li>
+            <li><b>Snacks:</b> Apple + PB; protein bar</li>
+          </ul>
+        </article>
+        <article>
+          <h3>Day 3</h3>
+          <ul>
+            <li><b>Breakfast:</b> Smoothie (Protein, Banana, Oats, Milk, PB)</li>
+            <li><b>Lunch:</b> Turkey Sandwich</li>
+            <li><b>Dinner:</b> Ground Beef Tacos (mild)</li>
+            <li><b>Snacks:</b> Yogurt; handful of nuts</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="schedule" class="tab">
+      <h2>Weekly Schedule (Hour-by-hour)</h2>
+      <p class="small">Matches the PDF we built; adjust as needed.</p>
+      <div id="scheduleContent"></div>
+    </section>
+
+    <section id="resources" class="tab">
+      <h2>Resources & Downloads</h2>
+      <ul>
+        <li><a href="Full_Weekly_Fitness_Schedule.pdf" target="_blank">Weekly Schedule (PDF)</a></li>
+        <li><a href="Grocery_List_Lean_Shred.pdf" target="_blank">Grocery List (PDF)</a></li>
+        <li><a href="Meal_Prep_Guide_Lean_Shred.pdf" target="_blank">Meal Prep Guide (PDF)</a></li>
+        <li><a href="Monthly_Progress_Tracker_Lean_Shred.pdf" target="_blank">Monthly Progress Tracker (PDF)</a></li>
+        <li><a href="Lean_Shred_Wall_Calendar.pdf" target="_blank">Wall Calendar (PDF)</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <small>Lean & Shred • Built for you • Install from the top-right</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
